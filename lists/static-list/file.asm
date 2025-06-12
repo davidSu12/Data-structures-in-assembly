@@ -22,6 +22,7 @@ COMMENT !
 						-searchItem
 						-getItem
 						-deleteItem
+						-insertItem
 						
 ! 
 
@@ -31,6 +32,40 @@ array DWORD listLen DUP(?)
 top SDWORD -1
 
 .code
+
+insertItem PROC
+
+	push ebp
+	mov ebp, esp
+
+	mov eax, [ebp + 8]; posicion donde insertar
+	mov ebx, [ebp + 12]; elemento a insertar
+
+	; primero movemos todos los elementos una posicion a la derecha
+
+	add top, 4
+	mov ecx, top
+
+	_loop:
+
+	mov esi, ecx
+	add esi, -4
+	
+	mov edi, array[esi]
+	xchg array[ecx], edi
+	
+	add ecx, -4
+	cmp ecx, eax
+	ja _loop
+
+	_insertElement:
+
+	mov array[eax], ebx; elemento insertado
+
+	pop ebp
+	ret 8
+insertItem PROC
+
 
 deleteItem PROC
 
