@@ -70,10 +70,10 @@ isEmptyList PROC
 	mov eax, 1
 	jmp _retorno
 
-_isNotEmpty:
-mov eax, 0
+	_isNotEmpty:
+	mov eax, 0
 
-_retorno :
+	_retorno :
 	pop ebp
 	ret
 	isEmptyList ENDP
@@ -114,20 +114,20 @@ next PROC
 	test eax, 00000001h
 	jnz _error
 
-_notError:
+	_notError:
 	cmp eax, SIZEOF array
 	ja _greater
 
-_below:
+	_below:
 	add eax, 4
 	jmp _return
 
-_greater:
-_error:
+	_greater:
+	_error:
 	mov eax, -1
 	
 
-_return:
+	_return:
 	pop ebp
 	ret 4
 
@@ -142,19 +142,20 @@ previous PROC
 	test eax, 00000001h
 	jnz _error
 
-_notError:
+	_notError:
 	cmp eax, 0
 	jbe _below
-_greater:
+
+	_greater:
 	add eax, -4
 	jmp _return
 
-_below:
-_error:
+	_below:
+	_error:
 
 	mov eax, -1
 
-_return:
+	_return:
 
 	pop ebp
 	ret 4
@@ -169,7 +170,7 @@ imprimirArray PROC
 	mov esi, [ebp + 8]
 	mov ecx, [ebp + 12]
 
-_loop:
+	_loop:
 
 	mov eax, [esi]
 	call WriteDec
