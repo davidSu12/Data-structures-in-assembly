@@ -78,7 +78,7 @@ _retorno :
 	ret
 	isEmptyList ENDP
 
-	first PROC
+first PROC
 
 	push ebp
 	mov ebp, esp
@@ -88,10 +88,10 @@ _retorno :
 	pop ebp
 	ret
 
-	first ENDP
+first ENDP
 
 
-	last PROC
+last PROC
 
 	push ebp
 	mov ebp, esp
@@ -101,7 +101,7 @@ _retorno :
 	pop ebp
 	ret
 
-	last ENDP
+last ENDP
 
 next PROC
 
