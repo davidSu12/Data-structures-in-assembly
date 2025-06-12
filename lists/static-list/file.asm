@@ -35,8 +35,39 @@ top SDWORD -1
 
 .code
 
+;se pasa primero el offset del array
+;luego el elemento a buscar
 
-get
+searchItem PROC
+
+	push ebp
+	mov ebp, esp
+	
+	mov ecx, 0
+	mov eax, [ebp + 8]
+	mov esi, OFFSET array 
+
+
+	_loop:
+	cmp eax, [esi]
+	je _return
+
+	add ecx, 4
+	add esi, 4
+
+	cmp ecx, SIZEOF array
+	je _notFound
+	jmp _loop
+
+	_notFound:
+	mov ecx, -1
+
+	_return:
+	
+	pop ebp
+	ret 4
+
+searchItem ENDP
 
 len PROC 
 
