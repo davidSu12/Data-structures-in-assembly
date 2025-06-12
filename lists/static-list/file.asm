@@ -18,15 +18,14 @@ IMPLEMENTED FUNCTIONS:
 -last
 -first
 -len
+-searchItem
+-getItem
 
 
 NOT IMPLEMENTED:
 
 -insertItem
 -deleteItem
--getItem
--searchItem
-
 ! 
 
 .data
@@ -37,6 +36,31 @@ top SDWORD -1
 
 ;se pasa primero el offset del array
 ;luego el elemento a buscar
+
+getItem PROC
+
+	push ebp
+	mov ebp,esp
+
+	mov eax, [ebp+8]
+	mov esi, OFFSET array
+
+	shl eax, 2
+	cmp eax, SIZEOF array
+	jb _inBound
+	_outOfBound:
+	mov ebx, -1
+	jmp _return
+
+	_inBound:
+	mov ebx, array[eax]
+		
+	_return:
+	pop ebp
+	ret 4
+
+getItem ENDP
+
 
 searchItem PROC
 
