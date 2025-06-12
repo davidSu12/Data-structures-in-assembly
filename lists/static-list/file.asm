@@ -10,23 +10,6 @@ elementTam EQU 4
 
 COMMENT ! TODO: First check that everything goes right, later optimizations !
 
-COMMENT ! 
-						IMPLEMENTED FUNCTIONS:
-						-createEmptyList
-						-isEmptyList
-						-next
-						-previous
-						-last
-						-first
-						-len
-						-searchItem
-						-getItem
-						-deleteItem
-						-insertItem
-						
-! 
-
-
 .data
 array DWORD listLen DUP(?)
 top SDWORD -1
