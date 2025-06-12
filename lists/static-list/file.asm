@@ -8,31 +8,59 @@ Include Irvine32.inc
 listLen EQU 100
 elementTam EQU 4
 
+COMMENT ! TODO: First check that everything goes right, later optimizations !
 
 COMMENT ! 
-IMPLEMENTED FUNCTIONS:
--createEmptyList
--isEmptyList
--next
--previous
--last
--first
--len
--searchItem
--getItem
-
-
-NOT IMPLEMENTED:
-
--insertItem
--deleteItem
+						IMPLEMENTED FUNCTIONS:
+						-createEmptyList
+						-isEmptyList
+						-next
+						-previous
+						-last
+						-first
+						-len
+						-searchItem
+						-getItem
+						-deleteItem
+						
 ! 
+
 
 .data
 array DWORD listLen DUP(?)
 top SDWORD -1
 
 .code
+
+deleteItem PROC
+
+	push ebp
+	mov ebp, esp
+
+	mov eax, [ebp + 8]  ;obtenemos la posicion que queremos
+	mov edi, top
+	add top, -4
+
+
+	shl eax, 2
+	
+	_loop:
+	
+	mov ebx, eax
+	add ebx, 4
+	
+	mov ecx, array[ebx]
+	xchg array[eax], ecx
+	
+	add eax, 4
+	
+	cmp eax, edi
+	jb _loop
+
+	pop ebp
+	ret 4
+
+deleteItem ENDP
 
 ;se pasa primero el offset del array
 ;luego el elemento a buscar
@@ -48,14 +76,18 @@ getItem PROC
 	shl eax, 2
 	cmp eax, SIZEOF array
 	jb _inBound
+
 	_outOfBound:
+
 	mov ebx, -1
 	jmp _return
 
 	_inBound:
+
 	mov ebx, array[eax]
 		
 	_return:
+
 	pop ebp
 	ret 4
 
@@ -73,6 +105,7 @@ searchItem PROC
 
 
 	_loop:
+
 	cmp eax, [esi]
 	je _return
 
@@ -84,6 +117,7 @@ searchItem PROC
 	jmp _loop
 
 	_notFound:
+
 	mov ecx, -1
 
 	_return:
@@ -126,9 +160,11 @@ isEmptyList PROC
 	jmp _retorno
 
 	_isNotEmpty:
+
 	mov eax, 0
 
-	_retorno :
+	_retorno:
+
 	pop ebp
 	ret
 	isEmptyList ENDP
@@ -170,18 +206,20 @@ next PROC
 	jnz _error
 
 	_notError:
+
 	cmp eax, SIZEOF array
 	ja _greater
 
 	_below:
+
 	add eax, 4
 	jmp _return
 
 	_greater:
 	_error:
+
 	mov eax, -1
 	
-
 	_return:
 	pop ebp
 	ret 4
@@ -198,10 +236,12 @@ previous PROC
 	jnz _error
 
 	_notError:
+
 	cmp eax, 0
 	jbe _below
 
 	_greater:
+
 	add eax, -4
 	jmp _return
 
