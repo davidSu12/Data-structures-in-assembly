@@ -1,2 +1,2 @@
 # Data-structures-in-assembly
-Just an implementation of a bunch of data structures in masm and nasm syntax
+If you don't like assembly, get out of here, run and don't look back.
