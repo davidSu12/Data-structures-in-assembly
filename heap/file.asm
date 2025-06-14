@@ -17,10 +17,31 @@ arrayLength EQU 100
 		mov ebp, esp
 
 		mov arrayTam, 0
-		
+
 		pop ebp
 		ret
 	createHeap ENDP
+
+
+	emptyHeap PROC
+		push ebp
+		mov ebp, esp
+
+		cmp arrayTam, 0
+		jb _notEqual
+
+		mov eax, 0
+		jmp _return
+
+		_notEqual:
+		mov eax, 1
+
+		_return:
+
+		pop ebp
+		ret
+
+	emptyHeap ENDP
 
 	main PROC
 
